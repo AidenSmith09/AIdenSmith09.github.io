@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="向着梦想前进">
 <meta property="og:description" content="网络协议协议分层：下层为上层提供服务，同层必须相同。 分层独立的优势:独立功能，设计无需估计其他问题，只需要按照标准制作即可。例如：使用 FTP 时，无需关心我走的线路是什么线。 ISO 国际标准组织提出OSI参考模型 PDU：Protocol Data Unit (协议数据单元) 端口号：客户端随机生成，服务端为固定。 每一个应用层软件都有一个随机端口号 0-65535，0-1000 特殊使用已">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-05T02:32:09.116Z">
+<meta property="og:updated_time" content="2019-10-05T04:34:14.575Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络基础">
 <meta name="twitter:description" content="网络协议协议分层：下层为上层提供服务，同层必须相同。 分层独立的优势:独立功能，设计无需估计其他问题，只需要按照标准制作即可。例如：使用 FTP 时，无需关心我走的线路是什么线。 ISO 国际标准组织提出OSI参考模型 PDU：Protocol Data Unit (协议数据单元) 端口号：客户端随机生成，服务端为固定。 每一个应用层软件都有一个随机端口号 0-65535，0-1000 特殊使用已">
@@ -329,7 +329,7 @@
                 
               
 
-              <time title="Created: 2019-10-05 09:16:12 / Modified: 10:32:09" itemprop="dateCreated datePublished" datetime="2019-10-05T09:16:12+08:00">2019-10-05</time>
+              <time title="Created: 2019-10-05 09:16:12 / Modified: 12:34:14" itemprop="dateCreated datePublished" datetime="2019-10-05T09:16:12+08:00">2019-10-05</time>
             </span>
           
 
@@ -417,22 +417,39 @@
 <p><strong>TCP 有数据重传机制，而 UDP 没有。</strong></p>
 <pre><code>应用层：HTTP:80 HTTPS:443  FTP:20/21   TFTP:69  Telnet:23  SMTP:25  POP3:110 DNS:53
 
-传输层：TCP:6        UDP:17
+传输层：TCP:6            UDP:17
 
-网络层：ICMP:1       IP:0x0800         ARP:0x0806
+网络层：ICMP:1           IP:0x0800         ARP:0x0806
 
 数据链路层：MAC子层</code></pre><p>TCP 序列号<code>seq</code>和确认号<code>ack</code></p>
 <p>确认号两个含义：<br>表示本序列号之前的顺序号，我都有确认收到<br>其次，表示下个包的序列号，应该+1<br>但在数据传输过程中，并不是一沉不变的+1，有时会加上数据长度。</p>
 <h2 id="IP与掩码计算"><a href="#IP与掩码计算" class="headerlink" title="IP与掩码计算"></a>IP与掩码计算</h2><p>子网范围<br>255.0.0.0 / 8<br>255.255.0.0 / 16<br>255.255.255.0 / 24<br>255.255.255.255 / 32</p>
-<h3 id="32-gt-子网掩码-gt-24位（255-255-255-0）"><a href="#32-gt-子网掩码-gt-24位（255-255-255-0）" class="headerlink" title="32 &gt; 子网掩码 &gt; 24位（255.255.255.0）"></a>32 &gt; 子网掩码 &gt; 24位（255.255.255.0）</h3><p><code>10.11.100.1/26</code>如何计算出起始IP与结束IP?<br>已知条件：<br>网段前缀：10.11.100<br>掩码：32&gt; 26 &gt; 24，则使用32位.</p>
-<p>计算方式：<br>步长：2^(子网范围 - 网段子网掩码) = 2^(32-26) = 2^6 = 64<br>每个子网段的起始地址为步长倍数：<code>0、64、128、192</code><br>查看IP地址，主机位在<code>0、64、128、192</code>谁之间。发现在<code>0-64</code>之间。<br>网络ID：步长范围最左<code>0-64</code>,<code>0</code>在左。<br>广播ID：步长范围最右<code>0-64</code>,<code>64</code>在右。<br>起始IP：网络ID + 1<br>终点IP：广播ID - 1</p>
+<p>步长：可以是IP范围的长度，也可以是网段范围的长度。<br>网段前缀：根据掩码来进行判断。</p>
+<p>网络掩码<strong>只具有本地意义</strong>，<strong>只具有本地意义</strong>，<strong>只具有本地意义</strong>！
+如：A：192.168.1.1/16；B：192.168.1.129/25<br>192.168.1.1/16 —- ping —-&gt; 192.169.1.129/25<br>无法ping通过。<br>因：ping包发出后，192.168.1.129/25 接收后，用自己的掩码进行判断，发现与自己不同，则丢弃。<br>注意：本机只看对方IP，并不看对方掩码。</p>
+<h3 id="子网掩码-gt-24位（255-255-255-0）"><a href="#子网掩码-gt-24位（255-255-255-0）" class="headerlink" title="子网掩码 &gt; 24位（255.255.255.0）"></a>子网掩码 &gt; 24位（255.255.255.0）</h3><p><code>10.11.100.1/26</code>如何计算出起始IP与结束IP?<br>已知条件：<br>网段前缀：10.11.100<br>掩码：32 &gt; 26 &gt; 24，则使用32位.</p>
+<p>计算方式：<br>IP步长：2^(子网范围 - 网段子网掩码) = 2^(32-26) = 2^6 = 64<br>每个子网段的起始地址为步长倍数：<code>0、64、128、192</code><br>查看IP地址，主机位在<code>0、64、128、192</code>谁之间。发现在<code>0-64</code>之间。<br>网络ID：步长范围最左<code>0-64</code>,<code>0</code>在左。<br>广播ID：步长范围最右<code>0-64</code>,<code>64</code>在右。<br>起始IP：网络ID + 1<br>终点IP：广播ID - 1</p>
 <p>即：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">网络ID：10.11.100.0</span><br><span class="line">广播ID：10.11.100.63</span><br><span class="line">起始IP：10.11.100.1</span><br><span class="line">终点IP：10.11.100.62</span><br></pre></td></tr></table></figure>
 
-<h3 id="24-gt-子网掩码-gt-16位（255-255-0-0"><a href="#24-gt-子网掩码-gt-16位（255-255-0-0" class="headerlink" title="24 &gt; 子网掩码 &gt; 16位（255.255.0.0)"></a>24 &gt; 子网掩码 &gt; 16位（255.255.0.0)</h3><p><code>10.11.100.1/18</code> 如何计算出起始IP与结束IP?<br>已知条件：<br>网段前缀：10.11<br>掩码：32 &gt; 24 &gt; 18 &gt; 16 使用24位。</p>
-<p>计算方式：<br>步长：2^(子网范围 - 网段子网掩码) = 2^(24-18) = 2^6 = 64<br>每个子网段的起始地址为步长倍数：<code>0、64、128、192</code><br>查看IP地址，主机位在<code>0、64、128、192</code>谁之间。发现在<code>64-128</code>之间。<br>网络ID：步长范围最左<code>64-128</code>,<code>64</code>在左。<br>广播ID：步长范围最右<code>64-128</code>,<code>128</code>在右。<br>起始IP：网络ID + 1<br>终点IP：广播ID - 1</p>
+<h3 id="24-gt-子网掩码-gt-16位（255-255-0-0）"><a href="#24-gt-子网掩码-gt-16位（255-255-0-0）" class="headerlink" title="24 &gt; 子网掩码 &gt; 16位（255.255.0.0）"></a>24 &gt; 子网掩码 &gt; 16位（255.255.0.0）</h3><p><code>10.11.100.1/18</code> 如何计算出起始IP与结束IP?<br>已知条件：<br>网段前缀：10.11<br>掩码：32 &gt; 24 &gt; 18 &gt; 16 使用24位。</p>
+<p>计算方式：<br>IP步长：2^(子网范围 - 网段子网掩码) = 2^(24-18) = 2^6 = 64<br>每个子网段的起始地址为步长倍数：<code>0、64、128、192</code><br>查看IP地址，主机位在<code>0、64、128、192</code>谁之间。发现在<code>64-128</code>之间。<br>网络ID：步长范围最左<code>64-128</code>,<code>64</code>在左。<br>广播ID：步长范围最右<code>64-128</code>,<code>128</code>在右。<br>起始IP：网络ID + 1<br>终点IP：广播ID - 1</p>
 <p>即：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">网络ID：10.11.64.0</span><br><span class="line">广播ID：10.11.127.255</span><br><span class="line">起始IP：10.11.64.1</span><br><span class="line">终点IP：10.11.127.254</span><br></pre></td></tr></table></figure>
+
+<h3 id="网段起始IP，终点IP快速算法"><a href="#网段起始IP，终点IP快速算法" class="headerlink" title="网段起始IP，终点IP快速算法"></a>网段起始IP，终点IP快速算法</h3><h4 id="算例"><a href="#算例" class="headerlink" title="算例"></a>算例</h4><p><code>192.168.9.10 / 255.255.248.0</code>的起始IP和结束IP是多少。</p>
+<p>网段步长公式：256 - 非255字节 = 256-248 = 8<br>网段范围公式：终点网段 - 起始网段(0为起始) + 1 = 网段步长</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">7 - 0 + 1 = 8</span><br><span class="line">15 - 7 + 1 = 8  //192.168.9.10 的数字9刚好在 第二个范围内。</span><br><span class="line">23 - 15 + 1 = 8</span><br></pre></td></tr></table></figure>
+
+<p>即
+起始IP：192.168.0.0<br>终点IP：192.168.15.255</p>
+<p>全0和全1不能用</p>
+<p>有效起始IP：192.168.0.1<br>有效终点IP：192.168.15.254</p>
+<h4 id="算例-1"><a href="#算例-1" class="headerlink" title="算例"></a>算例</h4><p>192.168.14.10 / 255.255.252.0 / 22 的起始IP和结束IP是多少？<br>网段步长公式：256 - 非255字节 = 256 - 252  = 4<br>网段范围公式：终点网段 - 起始网段(0为起始) + 1 = 网段步长</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">3 - 0 + 1 = 4</span><br><span class="line">6 - 3 + 1 = 4</span><br><span class="line">9 - 6 + 1 = 4</span><br><span class="line">12 - 9 + 1 = 4</span><br><span class="line">15 - 12 + 1 = 4  //192.168.14在此范围之内</span><br><span class="line">18 - 15 + 1 = 4</span><br></pre></td></tr></table></figure>
+
+<p>有效起始IP：192.168.12.1<br>有效终点IP：192.168.15.254</p>
+
       
     </div>
 
@@ -587,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络协议"><span class="nav-number">1.</span> <span class="nav-text">网络协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IT封装"><span class="nav-number">2.</span> <span class="nav-text">TCP/IT封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP与掩码计算"><span class="nav-number">3.</span> <span class="nav-text">IP与掩码计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#32-gt-子网掩码-gt-24位（255-255-255-0）"><span class="nav-number">3.1.</span> <span class="nav-text">32 &gt; 子网掩码 &gt; 24位（255.255.255.0）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-gt-子网掩码-gt-16位（255-255-0-0"><span class="nav-number">3.2.</span> <span class="nav-text">24 &gt; 子网掩码 &gt; 16位（255.255.0.0)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络协议"><span class="nav-number">1.</span> <span class="nav-text">网络协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IT封装"><span class="nav-number">2.</span> <span class="nav-text">TCP/IT封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP与掩码计算"><span class="nav-number">3.</span> <span class="nav-text">IP与掩码计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子网掩码-gt-24位（255-255-255-0）"><span class="nav-number">3.1.</span> <span class="nav-text">子网掩码 &gt; 24位（255.255.255.0）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-gt-子网掩码-gt-16位（255-255-0-0）"><span class="nav-number">3.2.</span> <span class="nav-text">24 &gt; 子网掩码 &gt; 16位（255.255.0.0）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网段起始IP，终点IP快速算法"><span class="nav-number">3.3.</span> <span class="nav-text">网段起始IP，终点IP快速算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算例"><span class="nav-number">3.3.1.</span> <span class="nav-text">算例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算例-1"><span class="nav-number">3.3.2.</span> <span class="nav-text">算例</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
