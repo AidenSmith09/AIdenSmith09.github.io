@@ -330,7 +330,7 @@
                 
               
 
-              <time title="Created: 2019-10-05 09:16:12 / Modified: 10:28:02" itemprop="dateCreated datePublished" datetime="2019-10-05T09:16:12+08:00">2019-10-05</time>
+              <time title="Created: 2019-10-05 09:16:12 / Modified: 10:32:09" itemprop="dateCreated datePublished" datetime="2019-10-05T09:16:12+08:00">2019-10-05</time>
             </span>
           
 
@@ -427,12 +427,12 @@
 数据链路层：MAC子层</code></pre><p>TCP 序列号<code>seq</code>和确认号<code>ack</code></p>
 <p>确认号两个含义：<br>表示本序列号之前的顺序号，我都有确认收到<br>其次，表示下个包的序列号，应该+1<br>但在数据传输过程中，并不是一沉不变的+1，有时会加上数据长度。</p>
 <h2 id="IP与掩码计算"><a href="#IP与掩码计算" class="headerlink" title="IP与掩码计算"></a>IP与掩码计算</h2><p>子网范围<br>255.0.0.0 / 8<br>255.255.0.0 / 16<br>255.255.255.0 / 24<br>255.255.255.255 / 32</p>
-<h3 id="子网掩码-gt-24位（255-255-255-0）"><a href="#子网掩码-gt-24位（255-255-255-0）" class="headerlink" title="子网掩码 &gt; 24位（255.255.255.0）"></a>子网掩码 &gt; 24位（255.255.255.0）</h3><p><code>10.11.100.1/26</code>如何计算出起始IP与结束IP?<br>已知条件：<br>网段前缀：10.11.100<br>掩码：32&gt; 26 &gt; 24，则使用32位.</p>
+<h3 id="32-gt-子网掩码-gt-24位（255-255-255-0）"><a href="#32-gt-子网掩码-gt-24位（255-255-255-0）" class="headerlink" title="32 &gt; 子网掩码 &gt; 24位（255.255.255.0）"></a>32 &gt; 子网掩码 &gt; 24位（255.255.255.0）</h3><p><code>10.11.100.1/26</code>如何计算出起始IP与结束IP?<br>已知条件：<br>网段前缀：10.11.100<br>掩码：32&gt; 26 &gt; 24，则使用32位.</p>
 <p>计算方式：<br>步长：2^(子网范围 - 网段子网掩码) = 2^(32-26) = 2^6 = 64<br>每个子网段的起始地址为步长倍数：<code>0、64、128、192</code><br>查看IP地址，主机位在<code>0、64、128、192</code>谁之间。发现在<code>0-64</code>之间。<br>网络ID：步长范围最左<code>0-64</code>,<code>0</code>在左。<br>广播ID：步长范围最右<code>0-64</code>,<code>64</code>在右。<br>起始IP：网络ID + 1<br>终点IP：广播ID - 1</p>
 <p>即：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">网络ID：10.11.100.0</span><br><span class="line">广播ID：10.11.100.63</span><br><span class="line">起始IP：10.11.100.1</span><br><span class="line">终点IP：10.11.100.62</span><br></pre></td></tr></table></figure>
 
-<h3 id="子网掩码-gt-16位（255-255-0-0）-lt-24位"><a href="#子网掩码-gt-16位（255-255-0-0）-lt-24位" class="headerlink" title="子网掩码 &gt; 16位（255.255.0.0） &lt; 24位"></a>子网掩码 &gt; 16位（255.255.0.0） &lt; 24位</h3><p><code>10.11.100.1/18</code> 如何计算出起始IP与结束IP?<br>已知条件：<br>网段前缀：10.11<br>掩码：32 &gt; 24 &gt; 18 &gt; 16 使用24位。</p>
+<h3 id="24-gt-子网掩码-gt-16位（255-255-0-0"><a href="#24-gt-子网掩码-gt-16位（255-255-0-0" class="headerlink" title="24 &gt; 子网掩码 &gt; 16位（255.255.0.0)"></a>24 &gt; 子网掩码 &gt; 16位（255.255.0.0)</h3><p><code>10.11.100.1/18</code> 如何计算出起始IP与结束IP?<br>已知条件：<br>网段前缀：10.11<br>掩码：32 &gt; 24 &gt; 18 &gt; 16 使用24位。</p>
 <p>计算方式：<br>步长：2^(子网范围 - 网段子网掩码) = 2^(24-18) = 2^6 = 64<br>每个子网段的起始地址为步长倍数：<code>0、64、128、192</code><br>查看IP地址，主机位在<code>0、64、128、192</code>谁之间。发现在<code>64-128</code>之间。<br>网络ID：步长范围最左<code>64-128</code>,<code>64</code>在左。<br>广播ID：步长范围最右<code>64-128</code>,<code>128</code>在右。<br>起始IP：网络ID + 1<br>终点IP：广播ID - 1</p>
 <p>即：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">网络ID：10.11.64.0</span><br><span class="line">广播ID：10.11.127.255</span><br><span class="line">起始IP：10.11.64.1</span><br><span class="line">终点IP：10.11.127.254</span><br></pre></td></tr></table></figure>
