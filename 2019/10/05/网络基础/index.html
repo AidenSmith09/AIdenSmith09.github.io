@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="向着梦想前进">
 <meta property="og:description" content="网络协议协议分层：下层为上层提供服务，同层必须相同。 分层独立的优势:独立功能，设计无需估计其他问题，只需要按照标准制作即可。例如：使用 FTP 时，无需关心我走的线路是什么线。 ISO 国际标准组织提出OSI参考模型 PDU：Protocol Data Unit (协议数据单元) 端口号：客户端随机生成，服务端为固定。 每一个应用层软件都有一个随机端口号 0-65535，0-1000 特殊使用已">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-05T01:34:31.619Z">
+<meta property="og:updated_time" content="2019-10-05T01:36:23.276Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络基础">
 <meta name="twitter:description" content="网络协议协议分层：下层为上层提供服务，同层必须相同。 分层独立的优势:独立功能，设计无需估计其他问题，只需要按照标准制作即可。例如：使用 FTP 时，无需关心我走的线路是什么线。 ISO 国际标准组织提出OSI参考模型 PDU：Protocol Data Unit (协议数据单元) 端口号：客户端随机生成，服务端为固定。 每一个应用层软件都有一个随机端口号 0-65535，0-1000 特殊使用已">
@@ -329,7 +329,7 @@
                 
               
 
-              <time title="Created: 2019-10-05 09:16:12 / Modified: 09:34:31" itemprop="dateCreated datePublished" datetime="2019-10-05T09:16:12+08:00">2019-10-05</time>
+              <time title="Created: 2019-10-05 09:16:12 / Modified: 09:36:23" itemprop="dateCreated datePublished" datetime="2019-10-05T09:16:12+08:00">2019-10-05</time>
             </span>
           
 
@@ -417,9 +417,9 @@
 <p><strong>TCP 有数据重传机制，而 UDP 没有。</strong></p>
 <pre><code>应用层：HTTP:80 HTTPS:443  FTP:20/21   TFTP:69  Telnet:23  SMTP:25  POP3:110 DNS:53
 
-传输层：TCP:6            UDP:17
+传输层：TCP:6        UDP:17
 
-网络层：ICMP:1           IP:0x0800         ARP:0x0806
+网络层：ICMP:1       IP:0x0800         ARP:0x0806
 
 数据链路层：MAC子层</code></pre><p>TCP 序列号<code>seq</code>和确认号<code>ack</code></p>
 <p>确认号两个含义：<br>表示本序列号之前的顺序号，我都有确认收到<br>其次，表示下个包的序列号，应该+1<br>但在数据传输过程中，并不是一沉不变的+1，有时会加上数据长度。</p>
