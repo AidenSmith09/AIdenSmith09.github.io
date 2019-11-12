@@ -285,6 +285,172 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/Mac-Install-Pygame/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Aiden">
+      <meta itemprop="description" content="一只安全狗的苦逼日常">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aiden的小黑屋">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/12/Mac-Install-Pygame/" class="post-title-link" itemprop="url">记一次 Mac 安装 Pygame 报错的故事</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-12 23:11:23 / Modified: 23:13:22" itemprop="dateCreated datePublished" datetime="2019-11-12T23:11:23+08:00">2019-11-12</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>Mac OS 10.14.<br>Python 3.7.4<br>Pygame 1.9.6</p>
+<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>Mac 运行 Pygame 窗口空白，有声音，无图像。<br>运行<code>python -m pygame.examples.aliens</code>只能听到声音，看不到图像。</p>
+<h2 id="故障定位"><a href="#故障定位" class="headerlink" title="故障定位"></a>故障定位</h2><p>python 与 pygame 不兼容情况导致。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>卸载本机 Python3.7.4 版本<br>卸载Python时会连以前下载的第三方库也删除掉，卸载后直接重装pygame即可。<br>卸载命令<code>brew uninstall python3</code><br>卸载不掉则使用<code>brew uninstall --ignore-dependencies python3</code>强制卸载命令。</p>
+<p>去官方下载  <strong>Python3.7.0</strong> 下载地址</p>
+<blockquote>
+<p><a href="https://www.python.org/downloads/release/python-370/" target="_blank" rel="noopener">https://www.python.org/downloads/release/python-370/</a></p>
+</blockquote>
+<hr>
+<p>如果你本身就是 Python3.7.0 还遇到此问题。则更换Pygame版本<br>卸载本机 Pygame 1.9.6 版本。<br>卸载命令<code>pip3 uninstall Pygame</code></p>
+<p>安装 Pygame 1.9.4.dev0 版本<br>下载（重装）命令v</p>
+<blockquote>
+<p>python3 -m pip install pygame==1.9.4.dev0</p>
+</blockquote>
+<hr>
+<p>安装完成后测试图像是否正常。</p>
+<blockquote>
+<p>python -m pygame.examples.aliens</p>
+</blockquote>
+<h2 id="小记"><a href="#小记" class="headerlink" title="小记"></a>小记</h2><p>不需要安装什么虚拟环境！<br>不需要 Mac 降级！<br>不知什么是 <code>brew</code> 请自行Google</p>
+<p>##参考链接<br><a href="https://github.com/pygame/pygame/issues/555" target="_blank" rel="noopener">https://github.com/pygame/pygame/issues/555</a><br><a href="https://www.jianshu.com/p/fba95268f2b4" target="_blank" rel="noopener">https://www.jianshu.com/p/fba95268f2b4</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/被动信息收集/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -345,7 +511,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-11-09 14:02:17" itemprop="dateModified" datetime="2019-11-09T14:02:17+08:00">2019-11-09</time>
+                <time title="Modified: 2019-11-09 14:04:15" itemprop="dateModified" datetime="2019-11-09T14:04:15+08:00">2019-11-09</time>
               </span>
             
           
@@ -800,7 +966,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -819,7 +985,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
